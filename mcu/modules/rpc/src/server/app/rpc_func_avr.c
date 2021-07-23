@@ -12,7 +12,7 @@
 
 #include "Arduino.h"
 
-rpc_analog_values_t get_analog_values(void){
+rpc_analog_values_t get_analog_values(void) {
     rpc_analog_values_t result;
     result.ain0 = analogRead(0);
     result.ain1 = analogRead(1);
@@ -23,28 +23,28 @@ rpc_analog_values_t get_analog_values(void){
     return result;
 }
 
-uint8_t get_digital_value(uint8_t pin_number){
+uint8_t get_digital_value(uint8_t pin_number) {
     uint8_t result = digitalRead(pin_number) == HIGH;
     return result;
 }
 
-void set_digital_value(uint8_t pin_number, uint8_t value){
-    if (value){
-      digitalWrite(pin_number, HIGH);
-    }else{
-      digitalWrite(pin_number, LOW);
+void set_digital_value(uint8_t pin_number, uint8_t value) {
+    if (value) {
+        digitalWrite(pin_number, HIGH);
+    } else {
+        digitalWrite(pin_number, LOW);
     }
 }
 
-void set_digital_direction(uint8_t pin_number, uint8_t output_direction){
-    if (output_direction){
-      pinMode(pin_number, OUTPUT);
-    }else{
-      pinMode(pin_number, INPUT);
+void set_digital_direction(uint8_t pin_number, uint8_t output_direction) {
+    if (output_direction) {
+        pinMode(pin_number, OUTPUT);
+    } else {
+        pinMode(pin_number, INPUT);
     }
 }
 
-void activate_rpc_watchdog(uint32_t timeout, uint8_t pin_number, uint8_t pin_value){
+void activate_rpc_watchdog(uint32_t timeout, uint8_t pin_number, uint8_t pin_value) {
     rpc_watchdog_data.timeout = timeout;
     rpc_watchdog_data.pin_number = pin_number;
     rpc_watchdog_data.pin_value = pin_value;

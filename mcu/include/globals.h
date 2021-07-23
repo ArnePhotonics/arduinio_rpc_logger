@@ -2,7 +2,6 @@
 #define GLOBALS_H_
 #include <stdint.h>
 
-
 #include "channel_codec/channel_codec_types.h"
 
 #ifdef __cplusplus
@@ -11,12 +10,11 @@ extern "C" {
 
 #include <stdint.h>
 
-
 void SET_LED(int ledstatus);
 void delay_ms(uint32_t sleep_ms);
 void trigger_watchdog_timer(void);
 
-typedef struct{
+typedef struct {
     uint32_t timeout;
     uint8_t pin_number;
     uint8_t pin_value;
@@ -25,8 +23,8 @@ typedef struct{
 }
 #endif
 
-typedef struct{
-	uint8_t serialno[5];
+typedef struct {
+    uint8_t serialno[5];
 } t_glob;
 
 t_glob glob;
