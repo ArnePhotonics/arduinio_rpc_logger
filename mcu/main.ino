@@ -20,6 +20,8 @@ channel_codec_instance_t cc_instances[channel_codec_comport_COUNT];
 
 static char cc_rxBuffers[channel_codec_comport_COUNT][CHANNEL_CODEC_RX_BUFFER_SIZE];
 static char cc_txBuffers[channel_codec_comport_COUNT][CHANNEL_CODEC_TX_BUFFER_SIZE];
+rpc_watchdog_t rpc_watchdog_data;
+uint32_t rpc_watchdog_timer;
 
 bool xSerialCharAvailable(){
 	if(Serial.available()){
@@ -49,15 +51,25 @@ extern "C" {
 	digitalWrite(LEDPIN, ledstate); // write inversed state back
       }
 
+    void trigger_watchdog_timer(void){
+        rpc_watchdog_timer = rpc_watchdog_data.timeout;
+    }
+
 	void xSerialToRPC(void){
 		while (xSerialCharAvailable()) {
+            trigger_watchdog_timer();
 		      toggleLED();
 			// read the incoming byte:
 			char inByte = 0;
 			xSerialGetChar(&inByte);
-
 			channel_push_byte_to_RPC(&cc_instances[channel_codec_comport_transmission],inByte);
 		}
+		if (rpc_watchdog_timer){
+            rpc_watchdog_timer--;
+            if (rpc_watchdog_timer == 0){
+                digitalWrite(rpc_watchdog_data.pin_number, rpc_watchdog_data.pin_value); // timeout happened. so lets set the watchdog pin as wanted
+            }
+        }
 	}
 
 
@@ -103,7 +115,7 @@ void setup() {
 		  cc_rxBuffers[channel_codec_comport_transmission],CHANNEL_CODEC_RX_BUFFER_SIZE,
 		  cc_txBuffers[channel_codec_comport_transmission],CHANNEL_CODEC_TX_BUFFER_SIZE);
 
-
+    rpc_watchdog_data.timeout = 0;
 #if 1
   while (!Serial) {
 	; // wait for serial port to connect. Needed for native USB port only

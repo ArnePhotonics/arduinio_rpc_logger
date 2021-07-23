@@ -44,6 +44,13 @@ void set_digital_direction(uint8_t pin_number, uint8_t output_direction){
     }
 }
 
+void activate_rpc_watchdog(uint32_t timeout, uint8_t pin_number, uint8_t pin_value){
+    rpc_watchdog_data.timeout = timeout;
+    rpc_watchdog_data.pin_number = pin_number;
+    rpc_watchdog_data.pin_value = pin_value;
+    trigger_watchdog_timer();
+}
+
 device_descriptor_v1_t get_device_descriptor(void) {
     device_descriptor_v1_t descriptor = {
         .githash = GITHASH,

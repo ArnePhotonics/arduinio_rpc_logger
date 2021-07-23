@@ -14,7 +14,13 @@ extern "C" {
 
 void SET_LED(int ledstatus);
 void delay_ms(uint32_t sleep_ms);
+void trigger_watchdog_timer(void);
 
+typedef struct{
+    uint32_t timeout;
+    uint8_t pin_number;
+    uint8_t pin_value;
+} rpc_watchdog_t;
 #ifdef __cplusplus
 }
 #endif
@@ -26,6 +32,8 @@ typedef struct{
 t_glob glob;
 
 extern uint8_t TARGETEMP_C;
+
+extern rpc_watchdog_t rpc_watchdog_data;
 
 extern channel_codec_instance_t cc_instances[channel_codec_comport_COUNT];
 

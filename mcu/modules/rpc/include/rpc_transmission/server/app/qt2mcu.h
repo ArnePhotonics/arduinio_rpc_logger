@@ -36,7 +36,8 @@ void set_digital_direction(uint8_t pin_number, uint8_t output_direction);
 void set_digital_value(uint8_t pin_number, uint8_t value);
 uint8_t get_digital_value(uint8_t pin_number);
 rpc_analog_values_t get_analog_values(void);
-  
+void activate_rpc_watchdog(uint32_t timeout, uint8_t pin_number, uint8_t pin_value);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

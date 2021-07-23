@@ -1,7 +1,7 @@
 # Arduino Make file. Refer to https://github.com/sudar/Arduino-Makefile
 ARDMK_DIR = ../Arduino-Makefile
 BOARD_TAG    = uno
-ARDUINO_DIR= $(HOME)/opt/arduino-1.8.5
+#ARDUINO_DIR= $(HOME)/opt/arduino-1.8.5
 USER_LIB_PATH=./
 ARDUINO_LIBS =  
 ARDUINO_LIBS +=libs/RPC-ChannelCodec/src/channel_codec
@@ -14,11 +14,10 @@ ARDUINO_LIBS +=modules/rpc/src/server/generated_app
 ARDUINO_LIBS +=modules/rpc/src/server/app
 ARDUINO_LIBS +=src
 
-#USER_LIB_PATH=
-#USER_INCLUDES = pt/
-#ARDUINO_PORT=/dev/ttyACM0
-include $(ARDMK_DIR)/Arduino.mk
 
+include $(ARDMK_DIR)/Arduino.mk
+AVRDUDE_CONF = /usr/share/arduino/hardware/tools/avrdude.conf
+include /usr/share/arduino/Arduino.mk
 
 # --- leonardo (or pro micro w/leo bootloader)
 #BOARD_TAG    = leonardo
