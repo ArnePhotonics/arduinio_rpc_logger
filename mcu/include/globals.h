@@ -13,12 +13,16 @@ extern "C" {
 void SET_LED(int ledstatus);
 void delay_ms(uint32_t sleep_ms);
 void trigger_watchdog_timer(void);
+bool is_watchdog_triggered();
 
 typedef struct {
     uint32_t timeout;
-    uint8_t pin_number;
-    uint8_t pin_value;
+    uint16_t pin_mask;
+    bool is_triggered;
 } rpc_watchdog_t;
+
+
+
 #ifdef __cplusplus
 }
 #endif
@@ -28,6 +32,8 @@ typedef struct {
 } t_glob;
 
 t_glob glob;
+
+
 
 extern uint8_t TARGETEMP_C;
 
