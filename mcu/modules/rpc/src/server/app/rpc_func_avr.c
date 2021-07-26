@@ -60,6 +60,7 @@ void set_digital_direction(uint8_t pin_number, uint8_t output_direction) {
 void activate_rpc_watchdog(uint32_t timeout, uint16_t pin_value_mask){
     rpc_watchdog_data.timeout = timeout;
     rpc_watchdog_data.pin_mask = pin_value_mask;
+    rpc_watchdog_data.is_triggered = false;
     trigger_watchdog_timer();
 }
 
