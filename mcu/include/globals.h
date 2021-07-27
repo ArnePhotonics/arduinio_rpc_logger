@@ -22,6 +22,7 @@ typedef struct {
 } rpc_watchdog_t;
 
 
+extern volatile rpc_watchdog_t rpc_watchdog_data;
 
 #ifdef __cplusplus
 }
@@ -37,7 +38,7 @@ t_glob glob;
 
 extern uint8_t TARGETEMP_C;
 
-extern rpc_watchdog_t rpc_watchdog_data;
+
 
 extern channel_codec_instance_t cc_instances[channel_codec_comport_COUNT];
 

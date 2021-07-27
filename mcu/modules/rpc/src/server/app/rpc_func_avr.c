@@ -32,6 +32,7 @@ uint8_t get_digital_value(uint8_t pin_number) {
         RPC_TRANSMISSION_reply_cancelled = true;
     }    
     uint8_t result = digitalRead(pin_number) == HIGH;
+    trigger_watchdog_timer();
     return result;
 }
 
@@ -62,6 +63,10 @@ void activate_rpc_watchdog(uint32_t timeout, uint16_t pin_value_mask){
     rpc_watchdog_data.pin_mask = pin_value_mask;
     rpc_watchdog_data.is_triggered = false;
     trigger_watchdog_timer();
+}
+
+uint32_t test32bit_transmission_adding_0x11223344(uint32_t input){
+    return input + 0x11223344;
 }
 
 device_descriptor_v1_t get_device_descriptor(void) {
